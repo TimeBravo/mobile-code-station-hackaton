@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import { SignIn } from '../screens/SignIn';
 import { Dashboard } from '../screens/Dashboard';
+import { OrderDetail } from '../screens/OrderDetail';
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -12,7 +13,7 @@ export function StackRoutes(){
     <Navigator headerMode="none" initialRouteName="SignIn">
       <Screen 
         name="SignIn"
-        component={Dashboard}
+        component={OrderDetail}
       />
     </Navigator>
   )
