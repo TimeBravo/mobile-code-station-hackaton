@@ -7,55 +7,54 @@ import { RFValue } from 'react-native-responsive-fontsize';
 
 import { Order } from '../../components/Order';
 
-// import api from '../../services/api';
+import api from '../../services/api';
 
-// import { CarDTO } from '../../dtos/CarDTO';
+import { OrderDTO } from '../../dtos/OrderDTO';
 
 // import { LoadAnimation } from '../../components/LoadAnimation';
 
 import {
   Container,
   Header,
-  TotalCars,
   HeaderContent,
   OrderList
 } from './styles';
 
 export function Dashboard() {
-  const [cars, setCars] = useState([]);
+  const [orders, setOrders] = useState<OrderDTO[]>([]);
   const [loading, setLoading] = useState(false);
 
   const navigation = useNavigation();
 
-  // function handleCarDetails(car: CarDTO) {
-  //   navigation.navigate('CarDetails', { car })
-  // }
+  function handleOrderDetail(order: OrderDTO) {
+    navigation.navigate('OrderDetail', { order })
+  }
 
-  // useEffect(() => {
-  //   let isMounted = true;
+  useEffect(() => {
+    let isMounted = true;
 
-  //   async function fetchCars() {
-  //     try {
-  //       const response = await api.get('/cars');
-  //       if(isMounted) {
-  //         setCars(response.data)
-  //       }
-  //     } catch (error) {
-  //       console.log(error)
-  //     } finally {
-  //       if(isMounted) {
-  //         setLoading(false)
-  //       }
-  //     }
-  //   }
+    async function fetchOrders() {
+      try {
+        const response = await api.get('/order');
+        if(isMounted) {
+          setOrders(response.data)
+        }
+      } catch (error) {
+        console.log(error)
+      } finally {
+        if(isMounted) {
+          setLoading(false)
+        }
+      }
+    }
 
-  //   fetchCars();
+    fetchOrders();
 
-  //   // Previne memory leak
-  //   return () => {
-  //     isMounted = false;
-  //   };
-  // }, []);
+    // Previne memory leak
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   return (
     <Container>
@@ -74,9 +73,9 @@ export function Dashboard() {
       </Header>
       { loading ? <ActivityIndicator /> :
         <OrderList
-          data={[1,2,3,4]}
-          keyExtractor={item => String(item)}
-          renderItem={({ item }) => <Order />}
+          data={orders}
+          keyExtractor={item => item.id}
+          renderItem={({ item }) => <Order data={item} onPress={() => handleOrderDetail(item)} />}
         />
       }
     </Container>

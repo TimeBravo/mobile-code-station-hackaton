@@ -1,5 +1,6 @@
 import React from 'react';
 import { RectButtonProps } from 'react-native-gesture-handler';
+import { OrderDTO } from '../../dtos/OrderDTO';
 
 import {
   Container,
@@ -14,19 +15,19 @@ import {
   CarImage,
 } from './styles';
 
-// interface Props extends RectButtonProps {
-//   data: CarDTO;
-// }
+interface Props extends RectButtonProps {
+  data: OrderDTO;
+}
 
-export function Order(){
+export function Order({ data, ...rest } : Props){
 
   return (
-    <Container>
+    <Container {...rest}>
       <Details>
         <About>
           <OrderColumn>
-            <Title>Ordem</Title>
-            <Description>1</Description>
+            <Title>Produto</Title>
+            <Description>{data.productName}</Description>
           </OrderColumn>
           
           {/* <OrderColumn>
@@ -37,13 +38,13 @@ export function Order(){
 
         <About style={{marginBottom: 16 }}>
           <OrderColumn>
-            <Title>Descrição</Title>
-            <Description>Criação de algo</Description>
+            <Title>Cliente</Title>
+            <Description>{data.clientName}</Description>
           </OrderColumn>
           
           <OrderColumn>
-            <Title>Etapa atual</Title>
-            <Description>Corte</Description>
+            <Title>Data da ordem</Title>
+            <Description>{data.createdAt}</Description>
           </OrderColumn>
         </About>
       </Details>

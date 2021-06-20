@@ -9,6 +9,8 @@ export const Container = styled.View`
 export const Header = styled.View`
   width: 100%;
   margin-top: ${getStatusBarHeight() + 116}px;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const Title = styled.Text`
@@ -32,3 +34,8 @@ export const Form = styled.View`
 `;
 
 export const Footer = styled.View``;
+
+export const Logo = styled.Image`
+  width: 200px;
+  height: 200px;
+`;
